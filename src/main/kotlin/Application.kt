@@ -6,18 +6,15 @@ class Application {
         println("ToDoList")
         var canExit = false
         while (!canExit) {
-            val input = ui.getInput().lowercase()
-            ui.showOutput(input)
-
-            when (input) {
-                "exit" -> {
-                    canExit = true
-                }
-                else -> {
-                    taskList.add(input)
-                }
+            try {
+                val input = ui.getInput().lowercase()
+                val command: Command = Parser(input).parse()
+                val output = command.execute()
+                ui.showOutput(output.message)
+                canExit = output.canExit
+            } catch (exception: InvalidCommandException) {
+                ui.showOutput(exception.message)
             }
         }
-        ui.showOutput("Program shutting down")
     }
 }

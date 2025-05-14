@@ -13,7 +13,7 @@ class Ui {
         return readln()
     }
 
-    fun showOutput(output: String) {
+    fun showOutput(output: String?) {
         println(output)
     }
 }
