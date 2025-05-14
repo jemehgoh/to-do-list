@@ -1,9 +1,9 @@
-import com.github.ajalt.clikt.core.CliktCommand
 import exception.InvalidCommandException
+import task.TaskList
 
 class Application {
     private val ui = Ui() // The application's UI
-    private val taskList = mutableListOf<String>()
+    private val taskList = TaskList()
 
     fun run() {
         println("ToDoList")
@@ -11,7 +11,7 @@ class Application {
         while (!canExit) {
             try {
                 val input = ui.getInput()
-                val command = Command(input)
+                val command = Command(input, taskList)
                 command.execute()
                 canExit = command.checkIfCanExit()
             } catch (exception: InvalidCommandException) {
