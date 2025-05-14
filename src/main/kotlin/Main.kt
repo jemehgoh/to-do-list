@@ -1,4 +1,4 @@
 fun main() {
-    val toDoList = ToDoList()
+    val toDoList = Application()
     toDoList.run()
 }
