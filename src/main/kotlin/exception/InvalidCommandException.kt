@@ -1,3 +1,5 @@
+package exception
+
 /**
  * Represents an invalid command exception.
  */
