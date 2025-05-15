@@ -12,7 +12,7 @@ class ExitCommand(): CliktCommand() {
     }
 
     /**
-     * Returns the command message with an exit message.
+     * Prints the exit message.
      */
     override fun run() {
         echo(EXIT_MESSAGE)
