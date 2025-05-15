@@ -6,10 +6,10 @@ class Application {
     private val taskList = TaskList()
 
     fun run() {
-        println("ToDoList")
         var canExit = false
         while (!canExit) {
             try {
+                ui.showOutput(taskList.showList())
                 val input = ui.getInput()
                 val command = Command(input, taskList)
                 command.execute()

@@ -5,7 +5,7 @@ import exception.InvalidCommandException
 import task.TaskList
 
 class Command(val input: String, val taskList: TaskList) {
-    private val commandParts = input.split(" ")
+    private val commandParts = input.splitBySpace(input)
     private val commandWord = commandParts[0].lowercase()
     private val commandArgs = commandParts.subList(1, commandParts.size)
 
@@ -29,3 +29,28 @@ class Command(val input: String, val taskList: TaskList) {
     }
 }
 
+private fun String.splitBySpace(input:String): MutableList<String> {
+    var isInQuotes = false
+    val outputList = mutableListOf<String>()
+    var index = 0
+    for (i in 0 until input.length) {
+        if (input[i] == ' ' && !isInQuotes) {
+            addItem(outputList, input.substring(index, i))
+            index = (i + 1)
+        } else if (input[i] == '\'') {
+            if (isInQuotes) {
+                outputList.add(input.substring((index + 1), i))
+                index = (i + 1)
+            }
+            isInQuotes = !isInQuotes
+        }
+    }
+    addItem(outputList, input.substring(index, input.length))
+    return outputList
+}
+
+private fun addItem(list: MutableList<String>, item: String) {
+    if (item.length != 0) {
+        list.add(item)
+    }
+}
