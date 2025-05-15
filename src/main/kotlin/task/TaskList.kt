@@ -7,6 +7,13 @@ class TaskList {
     val tasks = mutableListOf<Task>()
 
     /**
+     * @return the size of the list.
+     */
+    fun getSize(): Int {
+        return tasks.size
+    }
+
+    /**
      * Adds a task to the task list.
      *
      * @param name the name of the task to be added.
