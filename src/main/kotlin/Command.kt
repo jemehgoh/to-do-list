@@ -1,7 +1,9 @@
-import com.github.ajalt.clikt.core.main
+import com.github.ajalt.clikt.core.CliktError
+import com.github.ajalt.clikt.core.parse
 import command.AddCommand
 import command.ExitCommand
 import command.RemoveCommand
+import command.SetStatusCommand
 import exception.InvalidCommandException
 import task.TaskList
 
@@ -28,11 +30,34 @@ class Command(val input: String, val taskList: TaskList) {
      * Executes the command based on the command word specified.
      */
     fun execute() {
-        when (commandWord) {
-            "exit" -> ExitCommand().main(commandArgs)
-            "add" -> AddCommand(taskList).main(commandArgs)
-            "remove" -> RemoveCommand(taskList).main(commandArgs)
-            else -> throw InvalidCommandException("Invalid command!")
+        try {
+            when (commandWord) {
+                "exit" -> ExitCommand().parse(commandArgs)
+                "add" -> AddCommand(taskList).parse(commandArgs)
+                "remove" -> RemoveCommand(taskList).parse(commandArgs)
+                "setstatus" -> SetStatusCommand(taskList).parse(commandArgs)
+                else -> throw InvalidCommandException("Invalid command!")
+            }
+        } catch (error: CliktError) {
+            throw InvalidCommandException(setErrorMessage(commandWord))
+        }
+    }
+
+    private fun setErrorMessage(commandWord: String): String {
+        return when (commandWord) {
+            "add" -> """
+                Please key in the command in this format:
+                add <NAME>
+            """.trimIndent()
+            "remove" -> """
+                Please key in the command in this format:
+                remove <INDEX>
+            """.trimIndent()
+            "setstatus" -> """
+                Please key in the command in this format:
+                setstatus <INDEX> <STATUS>
+            """.trimIndent()
+            else -> "Invalid command!"
         }
     }
 }
