@@ -41,13 +41,31 @@ class TaskList {
     }
 
     /**
+     * Returns true if the task at the specified index can be set with the specified status,
+     * returns false otherwise.
+     *
+     * @param index the index of the task.
+     * @param status the status that the task at index is to be set to.
+     *
+     * @return true if the task at index's status is set to status, false otherwise.
+     */
+    fun setTaskStatus(index: Int, status: String): Boolean {
+        if (index >= tasks.size) {
+            return false
+        }
+
+        tasks[index].status = Status.valueOf(status)
+        return true
+    }
+
+    /**
      * @return a String representation of the task list.
      */
     fun showList(): String {
         var output = ""
         output += "Tasks\n"
         for (i in 0 until tasks.size) {
-            output += "${i}. ${tasks[i].name}\n"
+            output += "${i}. ${tasks[i].name} [${tasks[i].status}]\n"
         }
         return output
     }
