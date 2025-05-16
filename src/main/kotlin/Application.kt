@@ -16,6 +16,8 @@ class Application {
                 canExit = command.checkIfCanExit()
             } catch (exception: InvalidCommandException) {
                 ui.showOutput(exception.message)
+            } catch (exception: IllegalArgumentException) {
+                ui.showOutput("Status must be 'done' or 'pending'.")
             }
         }
     }

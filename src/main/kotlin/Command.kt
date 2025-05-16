@@ -1,5 +1,4 @@
 import com.github.ajalt.clikt.core.CliktError
-import com.github.ajalt.clikt.core.main
 import com.github.ajalt.clikt.core.parse
 import command.AddCommand
 import command.ExitCommand
