@@ -48,7 +48,7 @@ class Command(val input: String, val taskList: TaskList) {
         return when (commandWord) {
             "add" -> """
                 Please key in the command in this format:
-                add -n <NAME>
+                add <NAME>
             """.trimIndent()
             "remove" -> """
                 Please key in the command in this format:
