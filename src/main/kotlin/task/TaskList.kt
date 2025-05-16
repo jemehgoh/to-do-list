@@ -19,21 +19,25 @@ class TaskList {
      * @param name the name of the task to be added.
      */
     fun addTask(name: String?) {
-        val id = tasks.size + 1
-        val task = Task(name, id)
+        val task = Task(name)
         tasks.add(task)
     }
 
     /**
-     * Returns true if the task with the specified ID is in the task list,
+     * Returns true if the task at the specified index is in the task list,
      * returns false otherwise.
      *
-     * @param id the ID of the task to be removed
+     * @param index the ID of the task to be removed
      *
-     * @return true if a task with ID id is removed from the list, false otherwise
+     * @return true if a task at index is removed from the list, false otherwise
      */
-    fun removeTask(id: Int): Boolean {
-        return tasks.removeIf { task -> task.id == id }
+    fun removeTask(index: Int): Boolean {
+        try {
+            tasks.removeAt(index)
+            return true
+        } catch (e: IndexOutOfBoundsException) {
+            return false
+        }
     }
 
     /**
@@ -42,8 +46,8 @@ class TaskList {
     fun showList(): String {
         var output = ""
         output += "Tasks\n"
-        for (task in tasks) {
-            output += "${task.id}. ${task.name}\n"
+        for (i in 0 until tasks.size) {
+            output += "${i}. ${tasks[i].name}\n"
         }
         return output
     }

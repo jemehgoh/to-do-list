@@ -9,14 +9,14 @@ import task.TaskList
  * Represents the command to remove a task from the task list.
  */
 class RemoveCommand(val taskList: TaskList): CliktCommand() {
-    val id by argument().int()
+    val index by argument().int()
 
     override fun run() {
-        val isTaskRemoved = taskList.removeTask(id)
+        val isTaskRemoved = taskList.removeTask(index)
         if (isTaskRemoved) {
-            echo("Task $id has been removed from the list.")
+            echo("Task $index has been removed from the list.")
         } else {
-            echo("Task $id is not present in the list.")
+            echo("Task $index is not present in the list.")
         }
     }
 }
