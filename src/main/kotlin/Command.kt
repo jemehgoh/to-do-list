@@ -1,11 +1,15 @@
 import com.github.ajalt.clikt.core.main
 import command.AddCommand
 import command.ExitCommand
+import command.RemoveCommand
 import exception.InvalidCommandException
 import task.TaskList
 
+/**
+ * Represents the class that handles command execution.
+ */
 class Command(val input: String, val taskList: TaskList) {
-    private val commandParts = input.splitBySpace(input)
+    private val commandParts = splitBySpace(input)
     private val commandWord = commandParts[0].lowercase()
     private val commandArgs = commandParts.subList(1, commandParts.size)
 
@@ -20,16 +24,20 @@ class Command(val input: String, val taskList: TaskList) {
         return false
     }
 
+    /**
+     * Executes the command based on the command word specified.
+     */
     fun execute() {
         when (commandWord) {
             "exit" -> ExitCommand().main(commandArgs)
             "add" -> AddCommand(taskList).main(commandArgs)
+            "remove" -> RemoveCommand(taskList).main(commandArgs)
             else -> throw InvalidCommandException("Invalid command!")
         }
     }
 }
 
-private fun String.splitBySpace(input:String): MutableList<String> {
+private fun splitBySpace(input:String): MutableList<String> {
     var isInQuotes = false
     val outputList = mutableListOf<String>()
     var index = 0
@@ -50,7 +58,7 @@ private fun String.splitBySpace(input:String): MutableList<String> {
 }
 
 private fun addItem(list: MutableList<String>, item: String) {
-    if (item.length != 0) {
+    if (item.isNotEmpty()) {
         list.add(item)
     }
 }
